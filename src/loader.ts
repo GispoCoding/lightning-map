@@ -6,7 +6,7 @@ const DATA_URL =
 
 const loadData = async () => {
   const data = await parse(fetch(DATA_URL), CSVLoader);
-  return data;
+  return data.data;
 };
 
 export default { loadData };
