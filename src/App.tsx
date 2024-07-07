@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Map from "./components/Map";
 
 import loader from "./loader";
 
@@ -14,9 +15,7 @@ function App() {
 
   return (
     <div>
-      <button onClick={() => setCount((count) => count + 1)}>
-        count is {count}
-      </button>
+      <Map data={data} />
     </div>
   );
 }
