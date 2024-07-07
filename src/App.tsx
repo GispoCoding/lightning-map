@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
-import loader from "./loader"
+import loader from "./loader";
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [data, setData] = useState<any | null>(null)
+  const [count, setCount] = useState(0);
+  const [data, setData] = useState<any | null>(null);
 
   useEffect(() => {
-    loader
-      .loadData()
-      .then((data) => setData(data))
-  }, [])
+    loader.loadData().then((data) => setData(data));
+  }, []);
+
+  console.log(data);
 
   return (
     <div>
@@ -18,7 +18,7 @@ function App() {
         count is {count}
       </button>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
