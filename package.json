@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@loaders.gl/core": "^4.2.2",
     "@loaders.gl/csv": "^4.2.2",
+    "@mui/material": "^5.16.0",
     "d3-dsv": "^3.0.1",
     "deck.gl": "^9.0.21",
     "maplibre-gl": "^4.5.0",

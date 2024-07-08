@@ -1,6 +1,7 @@
+import { Container } from "@mui/material";
 import { useState, useEffect } from "react";
-import MapComponent from "./components/Map";
 
+import MapComponent from "./components/Map";
 import loader from "./loader";
 
 function App() {
@@ -10,13 +11,11 @@ function App() {
     loader.loadData().then((data) => setData(data));
   }, []);
 
-  // console.log(data);
-
   return (
-    <div>
+    <Container maxWidth={false}>
       {!data && <div> LOADING </div>}
       {data && <MapComponent data={data} />}
-    </div>
+    </Container>
   );
 }
 

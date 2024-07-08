@@ -1,8 +1,11 @@
+import { Paper, Slider } from "@mui/material";
+
 const Panel = ({ text }: { text: string }) => {
   return (
-    <div className="panel" style={{ zIndex: 10, position: "absolute" }}>
-      {text}
-    </div>
+    <Paper style={{ zIndex: 10, position: "absolute" }}>
+      <p>{text}</p>
+      <Slider />
+    </Paper>
   );
 };
 
