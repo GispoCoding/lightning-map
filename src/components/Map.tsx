@@ -3,7 +3,7 @@ import { DeckGL, ScatterplotLayer } from "deck.gl";
 import { DataFilterExtension } from "@deck.gl/extensions";
 import Map from "react-map-gl";
 import { BASEMAP } from "@deck.gl/carto";
-import Panel from "./Panel";
+import FilterSlider from "./FilterSlider";
 
 import type { MapViewState } from "deck.gl";
 
@@ -70,7 +70,15 @@ const MapComponent = ({ data }: any) => {
       >
         <Map mapStyle={BASEMAP.DARK_MATTER} attributionControl={true} />
       </DeckGL>
-      <Panel text="asdf" />
+      {timeRange && (
+        <FilterSlider
+          min={timeRange[0]}
+          max={timeRange[1]}
+          value={filterValue || [0, 0]} // hacky
+          animationSpeed={1}
+          setFilter={setFilter}
+        />
+      )}
     </div>
   );
 };
