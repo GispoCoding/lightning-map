@@ -31,24 +31,29 @@ const MapComponent = ({ data }: any) => {
 
   const dataFilter = new DataFilterExtension({
     filterSize: 1,
-    fp64: false,
+    // fp64: true,
   });
 
   console.log(data);
   console.log(timeRange);
 
   const layers = [
-    new ScatterplotLayer({
-      id: "ScatterplotLayer",
-      data: data,
-      stroked: false,
-      getPosition: (d) => [d.longitude, d.latitude],
-      getRadius: (d) => d.peak_current,
-      getFillColor: [255, 255, 255, 200],
-      radiusScale: 5,
-      // radiusMinPixels: 0.1,
-      billboard: true,
-    }),
+    filterValue &&
+      new ScatterplotLayer({
+        id: "ScatterplotLayer",
+        data: data,
+        stroked: false,
+        getPosition: (d) => [d.longitude, d.latitude],
+        getRadius: (d) => d.peak_current,
+        getFillColor: [255, 255, 255, 200],
+        radiusScale: 5,
+        // radiusMinPixels: 0.1,
+        billboard: true,
+
+        getFilterValue: (d: any) => d.time,
+        filterRange: [filterValue[0], filterValue[1]],
+        extensions: [dataFilter],
+      }),
   ];
   const INITIAL_VIEW_STATE: MapViewState = {
     longitude: 20,
