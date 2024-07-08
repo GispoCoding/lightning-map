@@ -4,18 +4,17 @@ import Map from "./components/Map";
 import loader from "./loader";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [lightnings, setLightnings] = useState<any | null>(null);
+  const [data, setData] = useState<any | null>(null);
 
   useEffect(() => {
-    loader.loadData().then((data) => setLightnings(data));
+    loader.loadData().then((data) => setData(data));
   }, []);
 
-  // console.log(lightnings);
+  // console.log(data);
 
   return (
     <div>
-      <Map data={lightnings} />
+      <Map data={data} />
     </div>
   );
 }

@@ -16,13 +16,11 @@ const Map = ({ data }: any) => {
   const lightnings = new ScatterplotLayer({
     id: "ScatterplotLayer",
     data: data,
-    stroked: true,
-    getPosition: (d) => [d.latitude, d.longitude],
+    stroked: false,
+    getPosition: (d) => [d.longitude, d.latitude],
+    getRadius: (d) => d.peak_current,
     getFillColor: [255, 255, 255],
-    // getLineColor: [0, 0, 0],
-    // getLineWidth: 10,
-    // radiusScale: 6,
-    // pickable: true,
+    radiusScale: 6,
   });
 
   const layers = [lightnings];
