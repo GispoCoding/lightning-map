@@ -1,8 +1,24 @@
-import { DeckGL, Layer } from "deck.gl";
+import { DeckGL } from "deck.gl";
 import Map from "react-map-gl";
 import { BASEMAP } from "@deck.gl/carto";
-import { MapViewState } from "deck.gl";
-import { ScatterplotLayer } from "deck.gl";
+import LightningLayer from "../layers";
+
+import type { MapViewState } from "deck.gl";
+
+const getTimeRange = (data: any): null | [minTime: number, maxTime: number] => {
+  if (!data) {
+    return null;
+  }
+  return data.reduce(
+    (range: any, d: any) => {
+      const t = d.time;
+      range[0] = Math.min(range[0], t);
+      range[1] = Math.max(range[1], t);
+      return range;
+    },
+    [Infinity, -Infinity],
+  );
+};
 
 const MapComponent = ({ data }: any) => {
   const INITIAL_VIEW_STATE: MapViewState = {
@@ -12,18 +28,9 @@ const MapComponent = ({ data }: any) => {
   };
 
   console.log(data);
+  console.log(getTimeRange(data));
 
-  const lightnings = new ScatterplotLayer({
-    id: "ScatterplotLayer",
-    data: data,
-    stroked: false,
-    getPosition: (d) => [d.longitude, d.latitude],
-    getRadius: (d) => d.peak_current,
-    getFillColor: [255, 255, 255, 200],
-    radiusScale: 5,
-    // radiusMinPixels: 0.1,
-    billboard: false,
-  });
+  const lightnings = LightningLayer(data);
 
   const layers = [lightnings];
 
