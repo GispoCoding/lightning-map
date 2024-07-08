@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Map from "./components/Map";
+import MapComponent from "./components/Map";
 
 import loader from "./loader";
 
@@ -14,7 +14,8 @@ function App() {
 
   return (
     <div>
-      <Map data={data} />
+      {!data && <div> LOADING </div>}
+      {data && <MapComponent data={data} />}
     </div>
   );
 }

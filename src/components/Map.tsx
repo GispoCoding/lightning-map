@@ -1,10 +1,10 @@
 import { DeckGL, Layer } from "deck.gl";
-import StaticMap from "react-map-gl";
+import Map from "react-map-gl";
 import { BASEMAP } from "@deck.gl/carto";
 import { MapViewState } from "deck.gl";
 import { ScatterplotLayer } from "deck.gl";
 
-const Map = ({ data }: any) => {
+const MapComponent = ({ data }: any) => {
   const INITIAL_VIEW_STATE: MapViewState = {
     longitude: 20,
     latitude: 65,
@@ -19,8 +19,10 @@ const Map = ({ data }: any) => {
     stroked: false,
     getPosition: (d) => [d.longitude, d.latitude],
     getRadius: (d) => d.peak_current,
-    getFillColor: [255, 255, 255],
-    radiusScale: 6,
+    getFillColor: [255, 255, 255, 200],
+    radiusScale: 5,
+    // radiusMinPixels: 0.1,
+    billboard: false,
   });
 
   const layers = [lightnings];
@@ -32,10 +34,10 @@ const Map = ({ data }: any) => {
         controller={true}
         layers={layers}
       >
-        <StaticMap mapStyle={BASEMAP.DARK_MATTER} />
+        <Map mapStyle={BASEMAP.DARK_MATTER} attributionControl={true} />
       </DeckGL>
     </div>
   );
 };
 
-export default Map;
+export default MapComponent;
