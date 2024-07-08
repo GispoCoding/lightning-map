@@ -2,6 +2,7 @@ import { DeckGL } from "deck.gl";
 import Map from "react-map-gl";
 import { BASEMAP } from "@deck.gl/carto";
 import LightningLayer from "../layers";
+import Panel from "./Panel";
 
 import type { MapViewState } from "deck.gl";
 
@@ -30,9 +31,7 @@ const MapComponent = ({ data }: any) => {
   console.log(data);
   console.log(getTimeRange(data));
 
-  const lightnings = LightningLayer(data);
-
-  const layers = [lightnings];
+  const layers = [LightningLayer(data)];
 
   return (
     <div style={{}}>
@@ -43,6 +42,7 @@ const MapComponent = ({ data }: any) => {
       >
         <Map mapStyle={BASEMAP.DARK_MATTER} attributionControl={true} />
       </DeckGL>
+      <Panel text="asdf" />
     </div>
   );
 };
