@@ -70,11 +70,12 @@ const MapComponent = ({ data }: any) => {
       >
         <Map mapStyle={BASEMAP.DARK_MATTER} attributionControl={true} />
       </DeckGL>
-      {timeRange && (
+      {timeRange && filterValue && (
         <FilterSlider
           min={timeRange[0]}
           max={timeRange[1]}
-          value={filterValue || [0, 0]} // hacky
+          value={filterValue}
+          // value={filterValue || [0, 0]} // hacky
           animationSpeed={1}
           setFilter={setFilter}
         />
