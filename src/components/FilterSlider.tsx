@@ -22,7 +22,14 @@ const FilterSlider = ({
   };
   return (
     <Box
-      sx={{ position: "absolute", width: "60%", bottom: "0.5em", left: "5em" }}
+      sx={{
+        position: "absolute",
+        width: "60%",
+        bottom: "0.5em",
+        // left: "5em",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+      }}
     >
       <Slider
         min={min}
@@ -31,6 +38,7 @@ const FilterSlider = ({
         onChange={handleChange}
         valueLabelDisplay="auto"
         valueLabelFormat={formatTimeStamp}
+        // sx={{ width: "100%" }}
       />
     </Box>
   );

@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { DeckGL, ScatterplotLayer } from "deck.gl";
 import { DataFilterExtension } from "@deck.gl/extensions";
-import Map from "react-map-gl";
+import Map, { AttributionControl } from "react-map-gl/maplibre";
 import { BASEMAP } from "@deck.gl/carto";
 import FilterSlider from "./FilterSlider";
 import InfoPanel from "./InfoPanel";
@@ -69,7 +69,9 @@ const MapComponent = ({ data }: any) => {
         controller={true}
         layers={layers}
       >
-        <Map mapStyle={BASEMAP.DARK_MATTER} attributionControl={true} />
+        <Map mapStyle={BASEMAP.DARK_MATTER} attributionControl={false}>
+          <AttributionControl position="top-right" compact={true} />
+        </Map>
       </DeckGL>
       {timeRange && filterRange && (
         <FilterSlider
