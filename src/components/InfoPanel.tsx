@@ -1,4 +1,15 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Card,
+  CardContent,
+  Typography,
+  Stack,
+  Link,
+} from "@mui/material";
+
+import { Info } from "@mui/icons-material";
 
 import formatTimeStamp from "../format-timestamp";
 
@@ -28,15 +39,43 @@ const InfoPanel = ({
   );
 
   return (
-    <Card sx={{ position: "absolute", top: "1em" }}>
-      <CardContent>
-        <PrimaryHeading text="Lightnings in Northern Europe" />
-        <NormalText text="Showing every lightning strike between" />
-        <SecondaryHeading text={minTime} />
-        <NormalText text="and" />
-        <SecondaryHeading text={maxTime} />
-      </CardContent>
-    </Card>
+    <Stack sx={{ position: "absolute", top: "1em" }}>
+      <Card>
+        <CardContent>
+          <PrimaryHeading text="Lightnings in Northern Europe" />
+          <NormalText text="Showing every lightning strike between" />
+          <SecondaryHeading text={minTime} />
+          <NormalText text="and" />
+          <SecondaryHeading text={maxTime} />
+        </CardContent>
+      </Card>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<Info />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          <Typography>
+            Data by the{" "}
+            <Link href="https://en.ilmatieteenlaitos.fi/">
+              {" "}
+              Finnish Meteorological Institute{" "}
+            </Link>
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            <Link href="https://en.ilmatieteenlaitos.fi/open-data">
+              FMI open data
+            </Link>{" "}
+            licensed under{" "}
+            <Link href="https://creativecommons.org/licenses/by/4.0/">
+              CC-BY 4.0
+            </Link>
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </Stack>
   );
 };
 
