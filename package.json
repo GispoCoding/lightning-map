@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.11.5",
     "@loaders.gl/core": "^4.2.2",
     "@loaders.gl/csv": "^4.2.2",
+    "@mui/icons-material": "^5.16.0",
     "@mui/material": "^5.16.0",
     "d3-dsv": "^3.0.1",
     "deck.gl": "^9.0.21",
