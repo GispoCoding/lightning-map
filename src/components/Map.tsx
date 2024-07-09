@@ -4,6 +4,7 @@ import { DataFilterExtension } from "@deck.gl/extensions";
 import Map from "react-map-gl";
 import { BASEMAP } from "@deck.gl/carto";
 import FilterSlider from "./FilterSlider";
+import InfoPanel from "./InfoPanel";
 
 import type { MapViewState } from "deck.gl";
 
@@ -27,7 +28,7 @@ const MapComponent = ({ data }: any) => {
     null,
   );
   const timeRange = useMemo(() => getTimeRange(data), [data]);
-  const filterValue = filter || timeRange;
+  const filterRange = filter || timeRange;
 
   const dataFilter = new DataFilterExtension({
     filterSize: 1,
@@ -38,7 +39,7 @@ const MapComponent = ({ data }: any) => {
   // console.log(timeRange);
 
   const layers = [
-    filterValue &&
+    filterRange &&
       new ScatterplotLayer({
         id: "ScatterplotLayer",
         data: data,
@@ -51,7 +52,7 @@ const MapComponent = ({ data }: any) => {
         billboard: true,
 
         getFilterValue: (d: any) => d.time,
-        filterRange: [filterValue[0], filterValue[1]],
+        filterRange: [filterRange[0], filterRange[1]],
         extensions: [dataFilter],
       }),
   ];
@@ -70,16 +71,17 @@ const MapComponent = ({ data }: any) => {
       >
         <Map mapStyle={BASEMAP.DARK_MATTER} attributionControl={true} />
       </DeckGL>
-      {timeRange && filterValue && (
+      {timeRange && filterRange && (
         <FilterSlider
           min={timeRange[0]}
           max={timeRange[1]}
-          value={filterValue}
+          value={filterRange}
           // value={filterValue || [0, 0]} // hacky
           animationSpeed={1}
           setFilter={setFilter}
         />
       )}
+      {filterRange && <InfoPanel timeRange={filterRange} />}
     </div>
   );
 };
