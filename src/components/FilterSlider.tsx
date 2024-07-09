@@ -2,8 +2,15 @@ import { useState } from "react";
 import { Slider, Box } from "@mui/material";
 
 const formatLabel = (timestamp: number) => {
-  const date = new Date(timestamp);
-  return `${date.getUTCFullYear()}/${date.getUTCMonth() + 1}`;
+  const date = new Date(timestamp * 1000);
+  const formatter = new Intl.DateTimeFormat("en-FI", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  return `${formatter.format(date)}`;
 };
 
 const FilterSlider = ({
@@ -25,14 +32,14 @@ const FilterSlider = ({
   };
   return (
     <Box
-      sx={{ position: "absolute", width: 600, bottom: "0.5em", left: "3em" }}
+      sx={{ position: "absolute", width: "50%", bottom: "0.5em", left: "5em" }}
     >
       <Slider
         min={min}
         max={max}
         value={value}
         onChange={handleChange}
-        valueLabelDisplay="on"
+        valueLabelDisplay="auto"
         valueLabelFormat={formatLabel}
       />
     </Box>
