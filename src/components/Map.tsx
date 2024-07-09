@@ -70,7 +70,7 @@ const MapComponent = ({ data }: any) => {
         layers={layers}
       >
         <Map mapStyle={BASEMAP.DARK_MATTER} attributionControl={false}>
-          <AttributionControl position="top-right" compact={true} />
+          <AttributionControl position="bottom-right" compact={false} />
         </Map>
       </DeckGL>
       {timeRange && filterRange && (

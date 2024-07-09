@@ -56,7 +56,7 @@ const InfoPanel = ({
             onChange={() => setVisibility(!visibility)}
           />
         }
-        labelPlacement="top"
+        // labelPlacement="top"
         label="Show info"
       />
       <Slide direction="right" in={visibility} mountOnEnter unmountOnExit>
