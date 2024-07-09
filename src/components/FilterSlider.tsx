@@ -1,17 +1,7 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Slider, Box } from "@mui/material";
 
-const formatLabel = (timestamp: number) => {
-  const date = new Date(timestamp * 1000);
-  const formatter = new Intl.DateTimeFormat("en-FI", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  return `${formatter.format(date)}`;
-};
+import formatTimeStamp from "../format-timestamp";
 
 const FilterSlider = ({
   min,
@@ -25,14 +15,14 @@ const FilterSlider = ({
   animationSpeed: number;
   setFilter: Function;
 }) => {
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  // const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const handleChange = (_: Event, newValue: number | number[]) => {
     setFilter(newValue as number[]);
   };
   return (
     <Box
-      sx={{ position: "absolute", width: "50%", bottom: "0.5em", left: "5em" }}
+      sx={{ position: "absolute", width: "60%", bottom: "0.5em", left: "5em" }}
     >
       <Slider
         min={min}
@@ -40,7 +30,7 @@ const FilterSlider = ({
         value={value}
         onChange={handleChange}
         valueLabelDisplay="auto"
-        valueLabelFormat={formatLabel}
+        valueLabelFormat={formatTimeStamp}
       />
     </Box>
   );

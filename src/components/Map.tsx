@@ -34,8 +34,8 @@ const MapComponent = ({ data }: any) => {
     // fp64: true,
   });
 
-  console.log(data);
-  console.log(timeRange);
+  // console.log(data);
+  // console.log(timeRange);
 
   const layers = [
     filterValue &&
