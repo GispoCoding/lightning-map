@@ -24,11 +24,11 @@ const getTimeRange = (data: any): null | [minTime: number, maxTime: number] => {
 };
 
 const MapComponent = ({ data }: any) => {
-  const [filter, setFilter] = useState<[start: number, end: number] | null>(
+  const [_filter, setFilter] = useState<[start: number, end: number] | null>(
     null,
   );
   const timeRange = useMemo(() => getTimeRange(data), [data]);
-  const filterRange = filter || timeRange;
+  const filterRange = _filter || timeRange;
 
   const dataFilter = new DataFilterExtension({
     filterSize: 1,
@@ -77,7 +77,7 @@ const MapComponent = ({ data }: any) => {
         <FilterSlider
           min={timeRange[0]}
           max={timeRange[1]}
-          value={filterRange}
+          filterRange={filterRange}
           // value={filterValue || [0, 0]} // hacky
           animationSpeed={1}
           setFilter={setFilter}

@@ -1,4 +1,4 @@
-const formatTimeStamp = (timestamp: number) => {
+const formatTimeStamp = (timestamp: number): string => {
   const date = new Date(timestamp * 1000);
   const formatter = new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
