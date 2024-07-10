@@ -19,25 +19,28 @@ const FilterSlider = ({
 }) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const isPlayEnabled = filterRange[0] > min || filterRange[1] < max;
-  const [animation] = useState<{
-    id?: number;
-  }>({});
+  // const [animation] = useState<{
+  //   id?: number;
+  // }>({});
 
   useEffect((): any => {
-    return () => animation.id && cancelAnimationFrame(animation.id);
-  }, [animation]);
+    let animation: number;
 
-  if (isPlaying && !animation.id) {
-    const span = filterRange[1] - filterRange[0];
-    let nextValueMin = filterRange[0] + 1000;
-    if (nextValueMin + span >= max) {
-      nextValueMin = min;
+    if (isPlaying) {
+      animation = requestAnimationFrame(() => {
+        const span = filterRange[1] - filterRange[0];
+        let nextValueMin = filterRange[0] + 100; // animation speed
+        let nextValueMax = nextValueMin + span;
+        if (nextValueMax >= max) {
+          nextValueMin = min;
+          nextValueMax = nextValueMin + span;
+        }
+        setFilter([nextValueMin, nextValueMax]);
+      });
     }
-    animation.id = requestAnimationFrame(() => {
-      animation.id = 0;
-      setFilter([nextValueMin, nextValueMin + span]);
-    });
-  }
+
+    return () => animation && cancelAnimationFrame(animation);
+  });
   const handleSliderChange = (_: Event, newValue: number | number[]) => {
     setFilter(newValue as number[]);
   };
