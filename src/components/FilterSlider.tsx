@@ -9,19 +9,17 @@ const FilterSlider = ({
   min,
   max,
   filterRange,
-  setFilter,
+  setFilterRange,
 }: {
   min: number;
   max: number;
   filterRange: [start: number, end: number];
   animationSpeed: number;
-  setFilter: Function;
+  setFilterRange: Function;
 }) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const isPlayEnabled = filterRange[0] > min || filterRange[1] < max;
-  // const [animation] = useState<{
-  //   id?: number;
-  // }>({});
+  // const [newMin, setNewMin] = useState<number>()
 
   useEffect((): any => {
     let animation: number;
@@ -29,20 +27,22 @@ const FilterSlider = ({
     if (isPlaying) {
       animation = requestAnimationFrame(() => {
         const span = filterRange[1] - filterRange[0];
-        let nextValueMin = filterRange[0] + 100; // animation speed
+        let nextValueMin = filterRange[0] + 1000; // animation speed
         let nextValueMax = nextValueMin + span;
         if (nextValueMax >= max) {
           nextValueMin = min;
           nextValueMax = nextValueMin + span;
         }
-        setFilter([nextValueMin, nextValueMax]);
+        setFilterRange([nextValueMin, nextValueMax]);
+        // console.log(nextValueMin);
       });
     }
 
     return () => animation && cancelAnimationFrame(animation);
   });
+
   const handleSliderChange = (_: Event, newValue: number | number[]) => {
-    setFilter(newValue as number[]);
+    setFilterRange(newValue as number[]);
   };
   return (
     <Box

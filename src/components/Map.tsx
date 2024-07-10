@@ -24,11 +24,11 @@ const getTimeRange = (data: any): null | [minTime: number, maxTime: number] => {
 };
 
 const MapComponent = ({ data }: any) => {
-  const [_filter, setFilter] = useState<[start: number, end: number] | null>(
-    null,
-  );
+  const [_filterRange, setFilterRange] = useState<
+    [start: number, end: number] | null
+  >(null);
   const timeRange = useMemo(() => getTimeRange(data), [data]);
-  const filterRange = _filter || timeRange;
+  const filterRange = _filterRange || timeRange;
 
   const dataFilter = new DataFilterExtension({
     filterSize: 1,
@@ -80,7 +80,7 @@ const MapComponent = ({ data }: any) => {
           filterRange={filterRange}
           // value={filterValue || [0, 0]} // hacky
           animationSpeed={1}
-          setFilter={setFilter}
+          setFilterRange={setFilterRange}
         />
       )}
       {filterRange && <InfoPanel timeRange={filterRange} />}
