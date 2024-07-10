@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Slider, Box, Button } from "@mui/material";
 import { PlayArrow } from "@mui/icons-material";
 import { Pause } from "@mui/icons-material";
@@ -14,40 +14,35 @@ const FilterSlider = ({
   min: number;
   max: number;
   filterRange: [start: number, end: number];
-  animationSpeed: number;
   setFilterRange: Function;
 }) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const isPlayEnabled = filterRange[0] > min || filterRange[1] < max;
 
-  const enablePlay = false; // TODO
-
-  // useEffect((): any => {
-  //   let animation: number;
-
-  //   if (isPlaying) {
-  //     animation = requestAnimationFrame(() => {
-  //       const span = filterRange[1] - filterRange[0];
-  //       let nextValueMin = filterRange[0] + 10; // animation speed
-  //       let nextValueMax = nextValueMin + span;
-  //       if (nextValueMax >= max) {
-  //         nextValueMin = min;
-  //         nextValueMax = nextValueMin + span;
-  //       }
-  //       setFilterRange([nextValueMin, nextValueMax]);
-  //       // console.log(nextValueMin);
-  //     });
-  //   }
-
-  //   return () => animation && cancelAnimationFrame(animation);
-  // });
+  useEffect((): any => {
+    let animation: number;
+    if (isPlaying) {
+      animation = requestAnimationFrame(() => {
+        const span = filterRange[1] - filterRange[0];
+        let nextValueMin = filterRange[0] + 100; // animation speed
+        let nextValueMax = nextValueMin + span;
+        if (nextValueMax >= max) {
+          nextValueMin = min;
+          nextValueMax = nextValueMin + span;
+        }
+        setFilterRange([nextValueMin, nextValueMax]);
+        // console.log(nextValueMin);
+      });
+    }
+    return () => animation && cancelAnimationFrame(animation);
+  });
 
   const handleSliderChange = (
     _: Event,
     newRange: number | Array<number>,
     activeThumb: number,
   ) => {
-    const minDistance = 100000;
+    const minDistance = 3600;
 
     if (!Array.isArray(newRange)) {
       return;
@@ -77,16 +72,14 @@ const FilterSlider = ({
         transform: "translate(-50%, -50%)",
       }}
     >
-      {enablePlay && (
-        <Button
-          color="primary"
-          disabled={!isPlayEnabled}
-          onClick={() => setIsPlaying(!isPlaying)}
-          title={isPlaying ? "Stop" : "Animate"}
-        >
-          {isPlaying ? <Pause /> : <PlayArrow />}
-        </Button>
-      )}
+      <Button
+        color="primary"
+        disabled={!isPlayEnabled}
+        onClick={() => setIsPlaying(!isPlaying)}
+        title={isPlaying ? "Stop" : "Animate"}
+      >
+        {isPlaying ? <Pause /> : <PlayArrow />}
+      </Button>
       <Slider
         min={min}
         max={max}

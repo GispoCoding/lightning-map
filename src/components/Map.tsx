@@ -47,7 +47,7 @@ const MapComponent = ({ data }: any) => {
         getPosition: (d) => [d.longitude, d.latitude],
         getRadius: (d) => d.peak_current,
         getFillColor: [255, 220, 200, 200],
-        radiusScale: 7,
+        radiusScale: 100,
         // radiusMinPixels: 0.1,
         billboard: true,
 
@@ -79,7 +79,7 @@ const MapComponent = ({ data }: any) => {
           max={timeRange[1]}
           filterRange={filterRange}
           // value={filterValue || [0, 0]} // hacky
-          animationSpeed={1}
+          // animationSpeed={1}
           setFilterRange={setFilterRange}
         />
       )}
