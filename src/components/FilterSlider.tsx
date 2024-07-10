@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Slider, Box, Button } from "@mui/material";
 import { PlayArrow } from "@mui/icons-material";
 import { Pause } from "@mui/icons-material";
@@ -19,7 +19,25 @@ const FilterSlider = ({
 }) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const isPlayEnabled = filterRange[0] > min || filterRange[1] < max;
+  const [animation] = useState<{
+    id?: number;
+  }>({});
 
+  useEffect((): any => {
+    return () => animation.id && cancelAnimationFrame(animation.id);
+  }, [animation]);
+
+  if (isPlaying && !animation.id) {
+    const span = filterRange[1] - filterRange[0];
+    let nextValueMin = filterRange[0] + 1000;
+    if (nextValueMin + span >= max) {
+      nextValueMin = min;
+    }
+    animation.id = requestAnimationFrame(() => {
+      animation.id = 0;
+      setFilter([nextValueMin, nextValueMin + span]);
+    });
+  }
   const handleSliderChange = (_: Event, newValue: number | number[]) => {
     setFilter(newValue as number[]);
   };
