@@ -48,10 +48,12 @@ const FilterSlider = ({
         position: "absolute",
         width: "90%",
         bottom: "0.5em",
-        // left: "5em",
         display: "flex",
         left: "50%",
         transform: "translate(-50%, -50%)",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Button
@@ -60,7 +62,11 @@ const FilterSlider = ({
         onClick={() => setIsPlaying(!isPlaying)}
         title={isPlaying ? "Stop" : "Animate"}
       >
-        {isPlaying ? <Pause /> : <PlayArrow />}
+        {isPlaying ? (
+          <Pause fontSize="large" />
+        ) : (
+          <PlayArrow fontSize="large" />
+        )}
       </Button>
       <Slider
         min={min}
