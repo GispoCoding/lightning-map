@@ -89,7 +89,7 @@ const InfoPanel = ({
                 aria-label="Animation Speed"
                 value={animationSpeed}
                 min={10}
-                max={10000}
+                max={3000}
                 onChange={(_, value: number | Array<number>) =>
                   setAnimationSpeed(value as number)
                 }

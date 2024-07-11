@@ -49,7 +49,7 @@ const MapComponent = ({ data }: any) => {
         stroked: false,
         getPosition: (d) => [d.longitude, d.latitude],
         getRadius: (d) => d.peak_current,
-        getFillColor: [255, 220, 200, 200],
+        getFillColor: [225, 210, 255, 180],
         radiusScale: radiusScale,
         // radiusMinPixels: 0.1,
         billboard: true,
