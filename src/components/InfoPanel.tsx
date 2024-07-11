@@ -19,18 +19,8 @@ import { Info, Settings } from "@mui/icons-material";
 
 import formatTimeStamp from "../format-timestamp";
 
-const NormalText = ({ text }: { text: string }) => (
-  <Typography variant="body1">{text}</Typography>
-);
-
-const PrimaryHeading = ({ text }: { text: string }) => (
-  <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold" }}>
-    {text}
-  </Typography>
-);
-
-const SecondaryHeading = ({ text }: { text: string }) => (
-  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+const Emphasize = ({ text }: { text: string }) => (
+  <Typography component="b" fontSize="large" fontWeight="bold">
     {text}
   </Typography>
 );
@@ -56,7 +46,13 @@ const InfoPanel = ({
 
   return (
     <Box
-      sx={{ position: "absolute", left: "0em", top: "0em", margin: "0.5em" }}
+      sx={{
+        position: "absolute",
+        left: "0em",
+        top: "0em",
+        margin: "0.5em",
+        maxWidth: "25em",
+      }}
     >
       <FormControlLabel
         control={
@@ -65,18 +61,24 @@ const InfoPanel = ({
             onChange={() => setVisibility(!visibility)}
           />
         }
-        // labelPlacement="top"
+        labelPlacement="end"
         label="Show panel"
       />
       <Slide direction="right" in={visibility} mountOnEnter unmountOnExit>
         <Stack>
           <Card>
             <CardContent>
-              <PrimaryHeading text="Lightnings in Northern Europe" />
-              <NormalText text="Showing every lightning strike between" />
-              <SecondaryHeading text={minTime} />
-              <NormalText text="and" />
-              <SecondaryHeading text={maxTime} />
+              <Typography variant="h5" fontWeight="bold" gutterBottom>
+                Lightnings in Northern Europe
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                Showing the location of every lightning strike from{" "}
+                <Emphasize text={minTime} /> to <Emphasize text={maxTime} />.
+              </Typography>
+              <Typography variant="body1">
+                Point size resembles the peak electrical current of the
+                lightning.
+              </Typography>
             </CardContent>
           </Card>
           <Accordion>

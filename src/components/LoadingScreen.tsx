@@ -1,11 +1,10 @@
-import { Typography, Box, CircularProgress } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import { Thunderstorm } from "@mui/icons-material";
 
 const LoadingScreen = () => {
   return (
     <Box
       sx={{
-        // display: "flex",
         textAlign: "center",
         position: "fixed",
         top: "50%",

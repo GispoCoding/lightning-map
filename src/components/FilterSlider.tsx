@@ -54,6 +54,7 @@ const FilterSlider = ({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        maxWidth: "100em",
       }}
     >
       <Button

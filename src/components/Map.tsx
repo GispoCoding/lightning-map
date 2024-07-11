@@ -35,11 +35,7 @@ const MapComponent = ({ data }: any) => {
 
   const dataFilter = new DataFilterExtension({
     filterSize: 1,
-    // fp64: true,
   });
-
-  // console.log(data);
-  // console.log(timeRange);
 
   const layers = [
     filterRange &&
@@ -51,7 +47,7 @@ const MapComponent = ({ data }: any) => {
         getRadius: (d) => d.peak_current,
         getFillColor: [225, 210, 255, 180],
         radiusScale: radiusScale,
-        // radiusMinPixels: 0.1,
+        radiusMinPixels: 0.1,
         billboard: true,
 
         getFilterValue: (d: any) => d.time,
