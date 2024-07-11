@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import { useState, useEffect } from "react";
 
 import MapComponent from "./components/Map";
+import LoadingScreen from "./components/LoadingScreen";
 import loader from "./loader";
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
 
   return (
     <Container maxWidth={false}>
-      {!data && <div> LOADING </div>}
+      {!data && <LoadingScreen />}
       {data && <MapComponent data={data} />}
     </Container>
   );
