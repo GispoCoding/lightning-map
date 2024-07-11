@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Slider,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -14,7 +15,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 
-import { Info } from "@mui/icons-material";
+import { Info, Settings } from "@mui/icons-material";
 
 import formatTimeStamp from "../format-timestamp";
 
@@ -36,8 +37,16 @@ const SecondaryHeading = ({ text }: { text: string }) => (
 
 const InfoPanel = ({
   timeRange,
+  animationSpeed,
+  setAnimationSpeed,
+  radiusScale,
+  setRadiusScale,
 }: {
   timeRange: [minTime: number, maxTime: number];
+  animationSpeed: number;
+  setAnimationSpeed: Function;
+  radiusScale: number;
+  setRadiusScale: Function;
 }) => {
   const [visibility, setVisibility] = useState<boolean>(true);
 
@@ -57,7 +66,7 @@ const InfoPanel = ({
           />
         }
         // labelPlacement="top"
-        label="Show info"
+        label="Show panel"
       />
       <Slide direction="right" in={visibility} mountOnEnter unmountOnExit>
         <Stack>
@@ -70,6 +79,33 @@ const InfoPanel = ({
               <SecondaryHeading text={maxTime} />
             </CardContent>
           </Card>
+          <Accordion>
+            <AccordionSummary expandIcon={<Settings />}>
+              Customize the visualization
+            </AccordionSummary>
+            <AccordionDetails>
+              Animation speed:
+              <Slider
+                aria-label="Animation Speed"
+                value={animationSpeed}
+                min={10}
+                max={10000}
+                onChange={(_, value: number | Array<number>) =>
+                  setAnimationSpeed(value as number)
+                }
+              />
+              Point size multiplier:
+              <Slider
+                aria-label="Point Size"
+                value={radiusScale}
+                min={1}
+                max={100}
+                onChange={(_, value: number | Array<number>) =>
+                  setRadiusScale(value as number)
+                }
+              />
+            </AccordionDetails>
+          </Accordion>
           <Accordion>
             <AccordionSummary
               expandIcon={<Info />}

@@ -27,6 +27,9 @@ const MapComponent = ({ data }: any) => {
   const [_filterRange, setFilterRange] = useState<
     [start: number, end: number] | null
   >(null);
+  const [radiusScale, setRadiusScale] = useState<number>(10);
+  const [animationSpeed, setAnimationSpeed] = useState<number>(1000);
+
   const timeRange = useMemo(() => getTimeRange(data), [data]);
   const filterRange = _filterRange || timeRange;
 
@@ -47,7 +50,7 @@ const MapComponent = ({ data }: any) => {
         getPosition: (d) => [d.longitude, d.latitude],
         getRadius: (d) => d.peak_current,
         getFillColor: [255, 220, 200, 200],
-        radiusScale: 100,
+        radiusScale: radiusScale,
         // radiusMinPixels: 0.1,
         billboard: true,
 
@@ -81,9 +84,18 @@ const MapComponent = ({ data }: any) => {
           // value={filterValue || [0, 0]} // hacky
           // animationSpeed={1}
           setFilterRange={setFilterRange}
+          animationSpeed={animationSpeed}
         />
       )}
-      {filterRange && <InfoPanel timeRange={filterRange} />}
+      {filterRange && (
+        <InfoPanel
+          timeRange={filterRange}
+          animationSpeed={animationSpeed}
+          setAnimationSpeed={setAnimationSpeed}
+          radiusScale={radiusScale}
+          setRadiusScale={setRadiusScale}
+        />
+      )}
     </div>
   );
 };

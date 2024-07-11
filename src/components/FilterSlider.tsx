@@ -10,11 +10,13 @@ const FilterSlider = ({
   max,
   filterRange,
   setFilterRange,
+  animationSpeed,
 }: {
   min: number;
   max: number;
   filterRange: [start: number, end: number];
   setFilterRange: Function;
+  animationSpeed: number;
 }) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const isPlayEnabled = filterRange[0] > min || filterRange[1] < max;
@@ -24,7 +26,7 @@ const FilterSlider = ({
     if (isPlaying) {
       animation = requestAnimationFrame(() => {
         const span = filterRange[1] - filterRange[0];
-        let nextValueMin = filterRange[0] + 10000; // animation speed
+        let nextValueMin = filterRange[0] + animationSpeed; // animation speed
         let nextValueMax = nextValueMin + span;
         if (nextValueMax >= max) {
           nextValueMin = min;
