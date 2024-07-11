@@ -24,40 +24,20 @@ const FilterSlider = ({
     if (isPlaying) {
       animation = requestAnimationFrame(() => {
         const span = filterRange[1] - filterRange[0];
-        let nextValueMin = filterRange[0] + 100; // animation speed
+        let nextValueMin = filterRange[0] + 10000; // animation speed
         let nextValueMax = nextValueMin + span;
         if (nextValueMax >= max) {
           nextValueMin = min;
           nextValueMax = nextValueMin + span;
         }
         setFilterRange([nextValueMin, nextValueMax]);
-        // console.log(nextValueMin);
       });
     }
     return () => animation && cancelAnimationFrame(animation);
   });
 
-  const handleSliderChange = (
-    _: Event,
-    newRange: number | Array<number>,
-    activeThumb: number,
-  ) => {
-    const minDistance = 3600;
-
-    if (!Array.isArray(newRange)) {
-      return;
-    }
-
-    const distance = newRange[1] - newRange[0];
-    if (distance <= minDistance) {
-      if (activeThumb === 0) {
-        setFilterRange([newRange[0], newRange[0] + minDistance]);
-      } else {
-        setFilterRange([newRange[1] - minDistance, newRange[1]]);
-      }
-    } else {
-      setFilterRange(newRange as number[]);
-    }
+  const handleSliderChange = (_: Event, newRange: number | Array<number>) => {
+    setFilterRange(newRange as Array<number>);
   };
 
   return (
