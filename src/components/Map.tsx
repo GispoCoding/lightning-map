@@ -27,7 +27,7 @@ const MapComponent = ({ data }: any) => {
   const [_filterRange, setFilterRange] = useState<
     [start: number, end: number] | null
   >(null);
-  const [radiusScale, setRadiusScale] = useState<number>(10);
+  const [radiusScale, setRadiusScale] = useState<number>(20);
   const [animationSpeed, setAnimationSpeed] = useState<number>(1000);
 
   const timeRange = useMemo(() => getTimeRange(data), [data]);
@@ -57,7 +57,7 @@ const MapComponent = ({ data }: any) => {
         getFilterValue: (d: any) => d.time,
         filterRange: [filterRange[0], filterRange[1]],
         filterSoftRange: [
-          filterRange[0] * 0.1 + filterRange[1] * 0.9,
+          filterRange[0] * 0.9 + filterRange[1] * 0.1,
           filterRange[1],
         ],
         extensions: [dataFilter],
@@ -65,7 +65,7 @@ const MapComponent = ({ data }: any) => {
   ];
   const INITIAL_VIEW_STATE: MapViewState = {
     longitude: 20,
-    latitude: 65,
+    latitude: 60,
     zoom: 5,
   };
 
@@ -85,8 +85,6 @@ const MapComponent = ({ data }: any) => {
           min={timeRange[0]}
           max={timeRange[1]}
           filterRange={filterRange}
-          // value={filterValue || [0, 0]} // hacky
-          // animationSpeed={1}
           setFilterRange={setFilterRange}
           animationSpeed={animationSpeed}
         />
