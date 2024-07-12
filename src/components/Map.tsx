@@ -52,10 +52,6 @@ const MapComponent = ({ data }: any) => {
 
         getFilterValue: (d: any) => d.time,
         filterRange: [filterRange[0], filterRange[1]],
-        filterSoftRange: [
-          filterRange[0] * 0.9 + filterRange[1] * 0.1,
-          filterRange[1],
-        ],
         extensions: [dataFilter],
       }),
   ];
