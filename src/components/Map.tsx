@@ -10,7 +10,7 @@ import type { MapViewState } from "deck.gl";
 import type LightningObservation from "../types";
 
 const getTimeRange = (
-  data: LightningObservation[],
+  data: LightningObservation[] | null,
 ): null | [minTime: number, maxTime: number] => {
   if (!data) {
     return null;
@@ -26,7 +26,7 @@ const getTimeRange = (
   );
 };
 
-const MapComponent = ({ data }: { data: LightningObservation[] }) => {
+const MapComponent = ({ data }: { data: LightningObservation[] | null }) => {
   const [_filterRange, setFilterRange] = useState<
     [start: number, end: number] | null
   >(null);
