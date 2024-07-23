@@ -5,8 +5,10 @@ import MapComponent from "./components/Map";
 import LoadingScreen from "./components/LoadingScreen";
 import loader from "./loader";
 
+import type LightningObservation from "./types";
+
 function App() {
-  const [data, setData] = useState<any | null>(null);
+  const [data, setData] = useState<LightningObservation[] | null>(null);
 
   useEffect(() => {
     loader.loadData().then((data) => setData(data));

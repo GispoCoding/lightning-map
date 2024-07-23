@@ -7,8 +7,11 @@ import FilterSlider from "./FilterSlider";
 import InfoPanel from "./InfoPanel";
 
 import type { MapViewState } from "deck.gl";
+import type LightningObservation from "../types";
 
-const getTimeRange = (data: any): null | [minTime: number, maxTime: number] => {
+const getTimeRange = (
+  data: LightningObservation[],
+): null | [minTime: number, maxTime: number] => {
   if (!data) {
     return null;
   }
@@ -23,7 +26,7 @@ const getTimeRange = (data: any): null | [minTime: number, maxTime: number] => {
   );
 };
 
-const MapComponent = ({ data }: any) => {
+const MapComponent = ({ data }: { data: LightningObservation[] }) => {
   const [_filterRange, setFilterRange] = useState<
     [start: number, end: number] | null
   >(null);

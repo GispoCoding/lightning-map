@@ -40,7 +40,7 @@ const InfoPanel = ({
 }) => {
   const [visibility, setVisibility] = useState<boolean>(true);
 
-  const [minTime, maxTime]: Array<string> = timeRange.map((t: number): string =>
+  const [minTime, maxTime]: string[] = timeRange.map((t: number): string =>
     formatTimeStamp(t),
   );
 
@@ -92,7 +92,7 @@ const InfoPanel = ({
                 value={animationSpeed}
                 min={10}
                 max={3000}
-                onChange={(_, value: number | Array<number>) =>
+                onChange={(_, value: number | number[]) =>
                   setAnimationSpeed(value as number)
                 }
               />
@@ -102,7 +102,7 @@ const InfoPanel = ({
                 value={radiusScale}
                 min={1}
                 max={100}
-                onChange={(_, value: number | Array<number>) =>
+                onChange={(_, value: number | number[]) =>
                   setRadiusScale(value as number)
                 }
               />

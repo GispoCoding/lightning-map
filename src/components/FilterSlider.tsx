@@ -26,7 +26,7 @@ const FilterSlider = ({
     if (isPlaying) {
       animation = requestAnimationFrame(() => {
         const span = filterRange[1] - filterRange[0];
-        let nextValueMin = filterRange[0] + animationSpeed; // animation speed
+        let nextValueMin = filterRange[0] + animationSpeed;
         let nextValueMax = nextValueMin + span;
         if (nextValueMax >= max) {
           nextValueMin = min;
@@ -38,8 +38,8 @@ const FilterSlider = ({
     return () => animation && cancelAnimationFrame(animation);
   });
 
-  const handleSliderChange = (_: Event, newRange: number | Array<number>) => {
-    setFilterRange(newRange as Array<number>);
+  const handleSliderChange = (_: Event, newRange: number | number[]) => {
+    setFilterRange(newRange as number[]);
   };
 
   return (
