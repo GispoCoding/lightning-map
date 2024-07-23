@@ -7,7 +7,7 @@ import loader from "./loader";
 
 import type LightningObservation from "./types";
 
-function App() {
+const App = () => {
   const [data, setData] = useState<LightningObservation[] | null>(null);
 
   useEffect(() => {
@@ -20,6 +20,6 @@ function App() {
       {data && <MapComponent data={data} />}
     </Container>
   );
-}
+};
 
 export default App;
