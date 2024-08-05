@@ -16,7 +16,7 @@ const getTimeRange = (
     return null;
   }
   return data.reduce(
-    (range: any, d: any) => {
+    (range: [minTime: number, maxTime: number], d: LightningObservation) => {
       const t = d.time;
       range[0] = Math.min(range[0], t);
       range[1] = Math.max(range[1], t);
@@ -46,14 +46,14 @@ const MapComponent = ({ data }: { data: LightningObservation[] | null }) => {
         id: "ScatterplotLayer",
         data: data,
         stroked: false,
-        getPosition: (d) => [d.longitude, d.latitude],
-        getRadius: (d) => d.peak_current,
+        getPosition: (d: LightningObservation) => [d.longitude, d.latitude],
+        getRadius: (d: LightningObservation) => d.peak_current,
         getFillColor: [225, 210, 255, 180],
         radiusScale: radiusScale,
         radiusMinPixels: 0.1,
         billboard: true,
 
-        getFilterValue: (d: any) => d.time,
+        getFilterValue: (d: LightningObservation) => d.time,
         filterRange: [filterRange[0], filterRange[1]],
         extensions: [dataFilter],
       }),
