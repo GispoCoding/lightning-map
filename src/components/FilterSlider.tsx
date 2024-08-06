@@ -46,7 +46,7 @@ const FilterSlider = ({
     <Box
       sx={{
         position: "absolute",
-        width: "90%",
+        width: "80%",
         bottom: "0.5em",
         display: "flex",
         left: "50%",
