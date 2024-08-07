@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { DeckGL, ScatterplotLayer } from "deck.gl";
 import { DataFilterExtension } from "@deck.gl/extensions";
 import Map, { AttributionControl } from "react-map-gl/maplibre";
@@ -6,7 +6,7 @@ import { BASEMAP } from "@deck.gl/carto";
 import FilterSlider from "./FilterSlider";
 import InfoPanel from "./InfoPanel";
 
-import type { MapViewState } from "deck.gl";
+import type { MapViewState, PickingInfo } from "deck.gl";
 import type LightningObservation from "../types";
 
 const getTimeRange = (
@@ -40,6 +40,23 @@ const MapComponent = ({ data }: { data: LightningObservation[] | null }) => {
     filterSize: 1,
   });
 
+  // Callback to populate the default tooltip with content
+  const getTooltip = useCallback(
+    ({ object }: PickingInfo<LightningObservation>): any => {
+      return (
+        object && {
+          html: `<div>${object.peak_current}</div>`,
+          style: {
+            fontSize: "0.8em",
+            color: "#fff",
+            backgroundColor: "#1e1e1e",
+          },
+        }
+      );
+    },
+    [],
+  );
+
   const layers = [
     filterRange &&
       new ScatterplotLayer({
@@ -52,6 +69,7 @@ const MapComponent = ({ data }: { data: LightningObservation[] | null }) => {
         radiusScale: radiusScale,
         radiusMinPixels: 0.1,
         billboard: true,
+        pickable: true,
 
         getFilterValue: (d: LightningObservation) => d.time,
         filterRange: [filterRange[0], filterRange[1]],
@@ -70,6 +88,7 @@ const MapComponent = ({ data }: { data: LightningObservation[] | null }) => {
         initialViewState={INITIAL_VIEW_STATE}
         controller={true}
         layers={layers}
+        getTooltip={getTooltip}
       >
         <Map mapStyle={BASEMAP.DARK_MATTER} attributionControl={false}>
           <AttributionControl position="bottom-right" compact={false} />
