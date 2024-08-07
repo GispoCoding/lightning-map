@@ -1,10 +1,11 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo } from "react";
 import { DeckGL, ScatterplotLayer } from "deck.gl";
 import { DataFilterExtension } from "@deck.gl/extensions";
 import Map, { AttributionControl } from "react-map-gl/maplibre";
 import { BASEMAP } from "@deck.gl/carto";
 import FilterSlider from "./FilterSlider";
 import InfoPanel from "./InfoPanel";
+import formatTimeStamp from "../format-timestamp";
 
 import type { MapViewState, PickingInfo } from "deck.gl";
 import type LightningObservation from "../types";
@@ -26,6 +27,22 @@ const getTimeRange = (
   );
 };
 
+const getTooltip = ({ object }: PickingInfo<LightningObservation>): any => {
+  return (
+    object && {
+      html: `
+          <div><b>Peak current:</b> ${object.peak_current} kA</div>
+          <div><b>Time</b>: ${formatTimeStamp(object.time)}</div>
+          `,
+      style: {
+        fontSize: "0.9em",
+        color: "#fff",
+        backgroundColor: "#1e1e1e",
+      },
+    }
+  );
+};
+
 const MapComponent = ({ data }: { data: LightningObservation[] | null }) => {
   const [_filterRange, setFilterRange] = useState<
     [start: number, end: number] | null
@@ -39,23 +56,6 @@ const MapComponent = ({ data }: { data: LightningObservation[] | null }) => {
   const dataFilter = new DataFilterExtension({
     filterSize: 1,
   });
-
-  // Callback to populate the default tooltip with content
-  const getTooltip = useCallback(
-    ({ object }: PickingInfo<LightningObservation>): any => {
-      return (
-        object && {
-          html: `<div>${object.peak_current}</div>`,
-          style: {
-            fontSize: "0.8em",
-            color: "#fff",
-            backgroundColor: "#1e1e1e",
-          },
-        }
-      );
-    },
-    [],
-  );
 
   const layers = [
     filterRange &&
